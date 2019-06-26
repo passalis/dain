@@ -13,9 +13,9 @@ We provide an example of using the proposed method in run_exp.py and we compare 
 
 | Method         | F1 score  | Cohen's kappa | 
 | -------------  | --------- | ------------- |  
-| z-score        |      |         | 
-| Sample Avg.    |      |          | 
-| DAIN (full)    |      |          | 
+| z-score        |   0.550   |     0.327     | 
+| Sample Avg.    |   0.434   |     0.205     | 
+| DAIN (full)    |   0.682   |     0.514     | 
 
 Please download the preprocessed data from [here](https://www.dropbox.com/s/vvvqwfejyertr4q/lob.tar.xz?dl=0). The dataset was based on the [FI-2010 dataset](https://etsin.avointiede.fi/dataset/urn-nbn-fi-csc-kata20170601153214969115).
 
