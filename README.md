@@ -25,7 +25,7 @@ If you use this code in your work please cite the following paper:
 @article{dain,
   title={Deep Adaptive Input Normalization for Price Forecasting using Limit Order Book Data},
   author={Passalis, Nikolaos and Tefas, Anastasios and Kanniainen, Juho and Gabbouj, Moncef and Iosifidis, Alexandros},
-  journal={arXiv preprint arXiv:1902.07892},
+  journal={IEEE Transactions on Neural Networks and Learning Systems},
   year={2019}
 }
 </pre>
