@@ -82,11 +82,11 @@ class DAIN_Layer(nn.Module):
             adaptive_std = adaptive_std.resize(adaptive_std.size(0), adaptive_std.size(1), 1)
             x = x / adaptive_std
 
-            # Step 3: Scale the data
+            # Step 3: 
             avg = torch.mean(x, 2)
-            scaler = F.sigmoid(self.gating_layer(avg))
-            scaler = scaler.resize(scaler.size(0), scaler.size(1), 1)
-            x = x * scaler
+            gate = F.sigmoid(self.gating_layer(avg))
+            gate = gate.resize(gate.size(0), gate.size(1), 1)
+            x = x * gate
 
         else:
             assert False
