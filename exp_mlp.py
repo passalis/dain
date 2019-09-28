@@ -42,11 +42,14 @@ def run_experiments_ablation(model, mode, train_epochs=20, window=10, normalizat
 
 mean_lr, std_lr, scale_lr = 1e-06, 0.001, 10
 
+# Baseline 1
 model = lambda: MLP(mode=None, mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
 run_experiments_ablation(model, 'mlp_std', window=15, normalization='std')
 
+# Baseline 2
 model = lambda: MLP(mode='avg', mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
 run_experiments_ablation(model, 'mlp_sample_avg', window=15, normalization=None)
 
+# Proposed Method
 model = lambda: MLP(mode='full', mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
 run_experiments_ablation(model, 'mlp_full', window=15, normalization=None)
