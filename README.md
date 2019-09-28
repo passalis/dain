@@ -1,4 +1,4 @@
-# Deep Adaptive Input Normalization for Price Forecasting using Limit Order Book Data
+# Deep Adaptive Input Normalization for Time Series Forecasting
 
 
 Deep Learning (DL) models can be used to tackle time series analysis tasks with great success. However, the performance of DL models can degenerate rapidly if the data are not appropriately normalized. This issue is even more apparent when
