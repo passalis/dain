@@ -6,7 +6,7 @@ DL is used for financial time series forecasting tasks, where the non-stationary
 account the distribution of the data. DAIN is trained in an end-to-end fashion using back-propagation and can lead to significant performance improvements.
 
 
-In this repository we provide an implementation of the [Deep Adaptive Input Normalization (DAIN)](https://arxiv.org/pdf/1902.07892.pdf) using PyTorch. Sample data loaders to evaluate the proposed method with a effectiveness of the proposed method is demonstrated using a large-scale limit order book dataset (FI-2010 dataset) are also provided. 
+In this repository we provide an implementation of the [Deep Adaptive Input Normalization (DAIN)](https://arxiv.org/pdf/1902.07892.pdf) using PyTorch. Sample data loaders to evaluate the effectiveness of the proposed method using a large-scale limit order book dataset (FI-2010 dataset) are also provided. 
 
 We provide an example of using the proposed method in run_exp.py and we compare DAIN to other normalization approaches. The proposed method can both increase the price forecasting as shown below (evaluation on all splits using a two layer MLP, prediction horizon = 10, window = 15):
 
