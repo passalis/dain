@@ -1,0 +1,12 @@
+name: 'dain'
+channels:
+        - main
+dependencies:
+        - python>=3.4
+        - pip
+        - pip:
+          - numpy
+          - torch
+          - tqdm
+          - sklearn
+          - h5py
