@@ -8,7 +8,9 @@ account the distribution of the data. DAIN is trained in an end-to-end fashion u
 
 In this repository we provide an implementation of the [Deep Adaptive Input Normalization (DAIN)](https://arxiv.org/pdf/1902.07892.pdf) using PyTorch. Sample data loaders to evaluate the effectiveness of the proposed method using a large-scale limit order book dataset (FI-2010 dataset) are also provided. 
 
-We provide an example of using the proposed method in run_exp.py and we compare DAIN to other normalization approaches. The proposed method can both increase the price forecasting as shown below (evaluation on all splits using a two layer MLP, prediction horizon = 10, window = 15):
+### Howto run:
+
+We provide an example of using the proposed method in `run_exp.py` and we compare DAIN to other normalization approaches. The proposed method can both increase the price forecasting as shown below (evaluation on all splits using a two layer MLP, prediction horizon = 10, window = 15):
 
 
 | Method         | F1 score  | Cohen's kappa | 
@@ -17,7 +19,12 @@ We provide an example of using the proposed method in run_exp.py and we compare 
 | Sample Avg.    |   0.434   |     0.205     | 
 | DAIN (full)    |   0.682   |     0.514     | 
 
-Please download the preprocessed data from [here](https://www.dropbox.com/s/vvvqwfejyertr4q/lob.tar.xz?dl=0). The dataset was based on the [FI-2010 dataset](https://etsin.avointiede.fi/dataset/urn-nbn-fi-csc-kata20170601153214969115).
+ - 1. Please download the preprocessed data from [here](https://www.dropbox.com/s/vvvqwfejyertr4q/lob.tar.xz?dl=0). The dataset was based on the [FI-2010 dataset](https://etsin.avointiede.fi/dataset/urn-nbn-fi-csc-kata20170601153214969115).
+ - 2. extract the file (`tar xvf log.tar.gz`) and place it in the cloned repo dir.
+ - 3. setup env, you can use predefined `conda env create -f environment.yml`
+ - 4. run the examples and reproduce the results: `python run_exp.py`
+
+### Citation
 
 If you use this code in your work please cite the following paper:
 
