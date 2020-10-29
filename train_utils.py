@@ -8,6 +8,10 @@ from torch.nn import CrossEntropyLoss
 from sklearn.metrics import precision_recall_fscore_support, cohen_kappa_score
 
 
+device = "cuda:0" if torch.cuda.is_available() else "cpu"
+if device == "cpu":
+    print("Warning: running on CPU, this will be slow.")
+
 def lob_epoch_trainer(model, loader, lr=0.0001, optimizer=optim.RMSprop):
     model.train()
 
@@ -24,7 +28,7 @@ def lob_epoch_trainer(model, loader, lr=0.0001, optimizer=optim.RMSprop):
     for (inputs, targets) in loader:
         model_optimizer.zero_grad()
 
-        inputs, targets = Variable(inputs.cuda()), Variable(targets.cuda())
+        inputs, targets = Variable(inputs.to(device=device)), Variable(targets.to(device=device))
         targets = torch.squeeze(targets)
 
         outputs = model(inputs)
@@ -46,7 +50,7 @@ def lob_evaluator(model, loader):
     predicted_labels = []
 
     for (inputs, targets) in tqdm(loader):
-        inputs, targets = inputs.cuda(), targets.cuda()
+        inputs, targets = inputs.to(device=device), targets.to(device=device)
         inputs, targets = Variable(inputs, volatile=True), Variable(targets)
         outputs = model(inputs)
         _, predicted = torch.max(outputs.data, 1)
@@ -97,7 +101,7 @@ def train_evaluate_anchored(model, epoch_trainer=lob_epoch_trainer, evaluator=lo
         train_loader, test_loader = get_wf_lob_loaders(window=window, horizon=horizon, split=i, batch_size=batch_size,
                                                        class_resample=use_resampling, normalization=normalization)
         current_model = model()
-        current_model.cuda()
+        current_model.to(device=device)
         for epoch in range(train_epochs):
             loss = epoch_trainer(model=current_model, loader=train_loader, lr=learning_rate)
             if verbose:
