@@ -14,16 +14,18 @@ class DAIN_Layer(nn.Module):
         self.gate_lr = gate_lr
         self.scale_lr = scale_lr
 
-        # Parameters for adaptive average
+        # Parameters for adaptive average; aka Dain(1) 
         self.mean_layer = nn.Linear(input_dim, input_dim, bias=False)
         self.mean_layer.weight.data = torch.FloatTensor(data=np.eye(input_dim, input_dim))
 
-        # Parameters for adaptive std
-        self.scaling_layer = nn.Linear(input_dim, input_dim, bias=False)
-        self.scaling_layer.weight.data = torch.FloatTensor(data=np.eye(input_dim, input_dim))
+        # Parameters for adaptive scaling; Dain(1+2)
+        if mode == 'adaptive_scale' or mode == 'full': 
+            self.scaling_layer = nn.Linear(input_dim, input_dim, bias=False)
+            self.scaling_layer.weight.data = torch.FloatTensor(data=np.eye(input_dim, input_dim))
 
-        # Parameters for adaptive scaling
-        self.gating_layer = nn.Linear(input_dim, input_dim)
+        # Parameters for adaptive gating; Dain(1+2+3)
+        if mode == 'full':
+            self.gating_layer = nn.Linear(input_dim, input_dim)
 
         self.eps = 1e-8
 
@@ -49,7 +51,6 @@ class DAIN_Layer(nn.Module):
 
         # Perform the first + second step (adaptive averaging + adaptive scaling )
         elif self.mode == 'adaptive_scale':
-
             # Step 1:
             avg = torch.mean(x, 2)
             adaptive_avg = self.mean_layer(avg)

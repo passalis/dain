@@ -27,7 +27,7 @@ class MLP(nn.Module):
         return x
 
 
-def run_experiments_ablation(model, mode, train_epochs=20, window=10, normalization=None):
+def run_experiments_ablation(model, mode, train_epochs=1, window=10, normalization=None):
 
     results1 = train_evaluate_anchored(model, window=window, train_epochs=train_epochs, horizon=0,
                                        splits=[1, 2, 3, 4, 5, 6, 7, 8],
@@ -43,13 +43,13 @@ def run_experiments_ablation(model, mode, train_epochs=20, window=10, normalizat
 mean_lr, std_lr, scale_lr = 1e-06, 0.001, 10
 
 # Baseline 1
-model = lambda: MLP(mode=None, mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
-run_experiments_ablation(model, 'mlp_std', window=15, normalization='std')
+#model = lambda: MLP(mode=None, mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
+#run_experiments_ablation(model, 'mlp_std', window=15, normalization='std')
 
 # Baseline 2
-model = lambda: MLP(mode='avg', mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
-run_experiments_ablation(model, 'mlp_sample_avg', window=15, normalization=None)
+#model = lambda: MLP(mode='avg', mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
+#run_experiments_ablation(model, 'mlp_sample_avg', window=15, normalization=None)
 
 # Proposed Method
-model = lambda: MLP(mode='full', mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
+model = lambda: MLP(mode='adaptive_scale', mean_lr=mean_lr, gate_lr=scale_lr, scale_lr=std_lr)
 run_experiments_ablation(model, 'mlp_full', window=15, normalization=None)

@@ -11,12 +11,15 @@ from sklearn.metrics import precision_recall_fscore_support, cohen_kappa_score
 def lob_epoch_trainer(model, loader, lr=0.0001, optimizer=optim.RMSprop):
     model.train()
 
-    model_optimizer = optimizer([
-        {'params': model.base.parameters()},
-        {'params': model.dean.mean_layer.parameters(), 'lr': lr * model.dean.mean_lr},
-        {'params': model.dean.scaling_layer.parameters(), 'lr': lr * model.dean.scale_lr},
-        {'params': model.dean.gating_layer.parameters(), 'lr': lr * model.dean.gate_lr},
-    ], lr=lr)
+    dean_params = [{'params': model.base.parameters()}]
+    if model.dean.mode in ['adaptive_avg', 'adaptive_scale', 'full']: 
+        dean_params.append({'params': model.dean.mean_layer.parameters(), 'lr': lr * model.dean.mean_lr})
+    if model.dean.mode in ['adaptive_scale', 'full']:
+        dean_params.append({'params': model.dean.scaling_layer.parameters(), 'lr': lr * model.dean.scale_lr})
+    if model.dean.mode == 'full':
+        dean_params.append({'params': model.dean.gating_layer.parameters(), 'lr': lr * model.dean.gate_lr})
+    
+    model_optimizer = optimizer(dean_params, lr=lr)
 
     criterion = CrossEntropyLoss()
     train_loss, counter = 0, 0
