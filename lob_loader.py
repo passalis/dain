@@ -105,8 +105,8 @@ class LOB_WF(Dataset):
         cur_idx = in_split_idx + self.window
         data = self.features_per_stock[stock_id][cur_idx - self.window:cur_idx]
         label = self.labels[stock_id][cur_idx]
-        return torch.from_numpy(data), torch.from_numpy(np.int64([label]))
-
+        
+        return torch.Tensor(np.copy(data)), torch.Tensor([label]).long()
 
 def get_wf_lob_loaders(h5_path='lob.h5', window=50,
                        split=0, horizon=0, batch_size=128, class_resample=False, normalization=None):
